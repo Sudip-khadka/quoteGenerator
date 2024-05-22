@@ -40,3 +40,16 @@ p{
     font-size: 20px;
     color:white;
 }
+.end{
+    display: flex;
+    align-items: center;
+    gap:15px;
+}
+#toast>svg{
+    margin-top: 8px;
+}
+.fs-6{
+    margin-top: -20px;
+    text-align: right;
+    font-size: 15px;
+}

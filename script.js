@@ -119,36 +119,72 @@ const quotes = [
     color12: "#16a085"
 };
 
-
-
 function getRandomColor() {
-    // Get a random color key from the colors object
-    const colorKeys = Object.keys(colors);
-    const randomColorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
-    // Return the corresponding color value
-    return colors[randomColorKey];
+  // Get a random color key from the colors object
+  const colorKeys = Object.keys(colors);
+  const randomColorKey = colorKeys[Math.floor(Math.random() * colorKeys.length)];
+  // Return the corresponding color value
+  return colors[randomColorKey];
 }
 // Fetching html elements id for Dom Manipulation 
 let text = document.getElementById('text');
 let author = document.getElementById('author');
 let new_quote=document.getElementById('new-quote');
 let tweet_quote=document.getElementById('tweet-quote');
+let toast=document.getElementById("toast");
+let toggle=false;
+
+// const toastTrigger = document.getElementById('liveToastBtn')
+const toastLiveExample = document.getElementById('liveToast')
+const toastLiveExampl = document.getElementById('liveToasta')
+
+// if (toastTrigger) {
+  //   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  //   toastTrigger.addEventListener('click', () => {
+    //     toastBootstrap.show()
+    //   })
+    // }
+    //function to display toast 
+    const displayToast = () => {
+      toggle = !toggle;
+      updateHeartIcon();
+      var option={
+        animarion:true,
+        delay:1000
+      };
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample,option)
+  toggle? toastBootstrap.show() : toastBootstrap.hide();
+};
+const updateHeartIcon = () => {
+  const emptyHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+  </svg>`;
+  const fillHeart = `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+  </svg>`;
+  
+  toast.innerHTML = toggle ? fillHeart : emptyHeart;
+};
 // Function to display a random quote
 function displayRandomQuote() {
-   // Get random color
-   const randomColor = getRandomColor();
-   // Set body background color
-   document.body.style.backgroundColor = randomColor;
-    new_quote.style.backgroundColor=randomColor;
-    tweet_quote.style.backgroundColor=randomColor;
-
-    //set text color
-    text.style.color=randomColor;
-    author.style.color=randomColor;
+  const randomColor = getRandomColor();
+  // Get random color
+  // Set body background color
+  document.body.style.backgroundColor = randomColor;
+  new_quote.style.backgroundColor=randomColor;
+  tweet_quote.style.backgroundColor=randomColor;
+  
+  //set text color
+  text.style.color=randomColor;
+  author.style.color=randomColor;
   // Random number generator from 1 to 100
   let randomNumber = Math.floor(Math.random() * 100) + 1;
 
+
   
+
+ 
+
 
   // Fetching random quote and author from Array
   let randomQuote = quotes.find(quote => quote.id === randomNumber);
@@ -159,6 +195,10 @@ function displayRandomQuote() {
 
   // Store the last displayed quote ID in localStorage
   localStorage.setItem('lastDisplayedQuoteId', randomNumber);
+  toggle=false;
+  updateHeartIcon();
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toggle? toastBootstrap.show() : toastBootstrap.hide();
 }
 // Function to be called when the page loads or refreshes
 window.onload = function() {
